@@ -1,171 +1,141 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>에니어그램 테스트</title>
 
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
-      integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX"
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>에니어그램 테스트</title>
 
-    <link rel="stylesheet" href="./style.css" />
-  </head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" />
+  <link rel="stylesheet"
+    href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous" />
 
-  <body>
-    <div id="app">
-      <div class="container">
-        <h1 class="mt-5 text-center">에니어그램 테스트</h1>
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
-        <div class="content mt-5 pr-5 pl-5">
-          <div v-if="step == 'step1'" class="card p-3">
-            <p class="h3 mb-3 text-center">검사하기 전에 읽어볼 사항</p>
-            <ul>
-              <li>
-                이 검사는 개인의 심리적 성향과 성격의 역동을 알아내어 자기와
-                타인을 이해하고 이를 토대로 직장과 사회 그리고 가정의 실제
-                생활에 도움을 주고자 하는데 그 목적이 있습니다.
-              </li>
-              <li>
-                이 검사는 인간의 능력을 진단하거나 평가하는 심리검사가
-                아닙니다.<br />
-                따라서 높은 점수가 좋은 것은 아닙니다.<br />
-                자기에 대한 자신의 생각과 느낌을 점수로 표시하면 됩니다.
-              </li>
-              <li>
-                응답을 하는 과정에서 어느 한 문항을 너무 오래 생각하지
-                마십시오.<br />
-                또한 비슷한 문항에 대해 의식적으로 일관성 있게 응답하려 하지
-                말고 주어진 문항에 편안하고 자연스럽게 응답하시기 바랍니다.
-              </li>
-              <li>
-                이상적으로 생각하는 자신의 모습이 아닌 평소의 자연스럽고 자주
-                나타나는 자신의 생각, 느낌, 행동하는 경향을 점수로 표기하십시오.
-              </li>
-              <li>
-                다음 문항들은 자신의 특징을 나타내고 있습니다.<br />
-                제시된 문항을 잘 읽고 그 문항이 자신을 얼마나 잘 설명하고
-                있는가를 결정하여 자신의 생각 또는 느낌과 일치하는 응답을 골라
-                주세요.
-              </li>
-            </ul>
-            <div class="text-center mt-5">
-              <button
-                class="btn btn-outline-primary btn-lg"
-                @click="clickStart"
-              >
-                시작하기
-              </button>
-            </div>
+<body>
+  <div id="app">
+    <div class="container">
+      <h1 class="mt-5 text-center">에니어그램 테스트</h1>
+
+      <div class="content mt-5 pr-5 pl-5">
+        <div v-if="step == 'step1'" class="card p-3">
+          <p class="h3 mb-3 text-center">검사하기 전에 읽어볼 사항</p>
+          <ul>
+            <li>
+              이 검사는 개인의 심리적 성향과 성격의 역동을 알아내어 자기와
+              타인을 이해하고 이를 토대로 직장과 사회 그리고 가정의 실제
+              생활에 도움을 주고자 하는데 그 목적이 있습니다.
+            </li>
+            <li>
+              이 검사는 인간의 능력을 진단하거나 평가하는 심리검사가
+              아닙니다.<br />
+              따라서 높은 점수가 좋은 것은 아닙니다.<br />
+              자기에 대한 자신의 생각과 느낌을 점수로 표시하면 됩니다.
+            </li>
+            <li>
+              응답을 하는 과정에서 어느 한 문항을 너무 오래 생각하지
+              마십시오.<br />
+              또한 비슷한 문항에 대해 의식적으로 일관성 있게 응답하려 하지
+              말고 주어진 문항에 편안하고 자연스럽게 응답하시기 바랍니다.
+            </li>
+            <li>
+              이상적으로 생각하는 자신의 모습이 아닌 평소의 자연스럽고 자주
+              나타나는 자신의 생각, 느낌, 행동하는 경향을 점수로 표기하십시오.
+            </li>
+            <li>
+              다음 문항들은 자신의 특징을 나타내고 있습니다.<br />
+              제시된 문항을 잘 읽고 그 문항이 자신을 얼마나 잘 설명하고
+              있는가를 결정하여 자신의 생각 또는 느낌과 일치하는 응답을 골라
+              주세요.
+            </li>
+          </ul>
+          <div class="text-center mt-5">
+            <button class="btn btn-outline-primary btn-lg" @click="clickStart">
+              시작하기
+            </button>
           </div>
+        </div>
 
-          <div v-if="step == 'step2'" class="step2">
-            <div
-              v-for="(question, index) in curQuestionList"
-              :key="question[1]"
-              class="card p-3 mb-4"
-            >
-              <p class="text-center"><strong>{{ question[1] }}</strong></p>
+        <div v-if="step == 'step2'" class="step2">
+          <div v-for="(question, index) in curQuestionList" :key="question[1]" class="card p-3 mb-4">
+            <p class="text-center"><strong>{{ question[1] }}</strong></p>
 
-              <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary form-check-label">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    value="1"
-                    v-model="curQuestionValueList[index]"
-                  />
-                  전혀 그렇지 않다
-                </label>
-                <label class="btn btn-primary form-check-label">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    value="2"
-                    v-model="curQuestionValueList[index]"
-                  />
-                  그렇지 않다
-                </label>
-                <label class="btn btn-primary form-check-label">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    value="3"
-                    v-model="curQuestionValueList[index]"
-                  />
-                  보통이다
-                </label>
-              </div>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-primary form-check-label">
+                <input class="form-check-input" type="radio" value="1" v-model="curQuestionValueList[index]" />
+                전혀 그렇지 않다
+              </label>
+              <label class="btn btn-primary form-check-label">
+                <input class="form-check-input" type="radio" value="2" v-model="curQuestionValueList[index]" />
+                그렇지 않다
+              </label>
+              <label class="btn btn-primary form-check-label">
+                <input class="form-check-input" type="radio" value="3" v-model="curQuestionValueList[index]" />
+                보통이다
+              </label>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script
-      src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
-      integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
-      integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-      crossorigin="anonymous"
-    ></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+    integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+    integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+    crossorigin="anonymous"></script>
 
-    <!-- vue -->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <!-- vue -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
-    <script>
-      var app = new Vue({
-        el: "#app",
-        data() {
-          return {
-            step: "step1",
-            startIndex: 0,
-            endIndex: 10,
-            curIndex: 0,
-            countPerPage: 1,
-            allQuestionList: [],
-            curQuestionList: [],
-            curQuestionValueList: [],
-          };
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          step: "step1",
+          startIndex: 0,
+          endIndex: 10,
+          curIndex: 0,
+          countPerPage: 1,
+          allQuestionList: [],
+          curQuestionList: [],
+          curQuestionValueList: [],
+        };
+      },
+      methods: {
+        clickStart() {
+          console.log("clickStart");
+          this.step = "step2";
+          this.curIndex = 0;
+
+          this.setQuestionList();
         },
-        methods: {
-          clickStart() {
-            console.log("clickStart");
-            this.step = "step2";
-            this.curIndex = 0;
+        setQuestionList() {
+          this.curQuestionList = this.allQuestionList.slice(
+            this.curIndex,
+            this.curIndex + this.countPerPage
+          );
 
-            this.setQuestionList();
-          },
-          setQuestionList() {
-            this.curQuestionList = this.allQuestionList.slice(
-              this.curIndex,
-              this.curIndex + this.countPerPage
-            );
-
-            this.curQuestionValueList.fill(0);
-            console.log(this.curQuestionList);
-          },
+          this.curQuestionValueList.fill(0);
+          console.log(this.curQuestionList);
         },
-        mounted() {
-          this.curQuestionValueList = new Array(this.countPerPage);
+      },
+      mounted() {
+        this.curQuestionValueList = new Array(this.countPerPage);
 
-          let vm = this;
-          $.getJSON("/enneagram.json", function (data) {
-            vm.allQuestionList = data;
-          });
-        },
-      });
-    </script>
-  </body>
+        let vm = this;
+        $.getJSON("./enneagram.json", function (data) {
+          vm.allQuestionList = data;
+        });
+      },
+    });
+  </script>
+</body>
+
 </html>
