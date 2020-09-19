@@ -73,7 +73,7 @@
                 <div
                   v-for="(question, index) in curQuestionList"
                   :key="question[1]"
-                  class="card p-3 mb-4"
+                  class="card p-2 mb-3"
                 >
                   <p class="text-center mb-2">
                     <strong>{{ question[1] }}</strong>
@@ -140,6 +140,10 @@
                 </div>
 
                 <div class="text-center mt-5">
+                  <span class="d-block"
+                    >{{ parseInt(curIndex / countPerPage) + 1 }} / {{
+                    parseInt(endIndex / countPerPage) + 1 }}</span
+                  >
                   <button
                     type="submit"
                     class="btn btn-outline-primary btn-lg"
@@ -149,6 +153,16 @@
                   </button>
                 </div>
               </form>
+            </div>
+
+            <div v-show="step == 'step3'" class="step3">
+              <div class="card p-5">
+                <p class="text-center h4 mb-5">
+                  당신의 예상 유형은
+                  <strong>{{ getEnneagramTypeName() }}</strong>입니다.
+                </p>
+                <div id="chart"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -170,6 +184,13 @@
     <!-- vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
+    <!-- highchart -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
     <script>
       var app = new Vue({
         el: "#app",
@@ -177,15 +198,26 @@
           return {
             step: "step1",
             startIndex: 0,
-            endIndex: 10,
-            // endIndex: 80,
+            // endIndex: 2,
+            endIndex: 80,
             curIndex: 0,
-            countPerPage: 2,
-            // countPerPage: 9,
+            // countPerPage: 3,
+            countPerPage: 7,
             allQuestionList: [],
             curQuestionList: [],
             score: [],
             curScoreList: [],
+            typeNameList: [
+              "개혁가",
+              "조력가",
+              "성취자",
+              "예술가",
+              "사색가",
+              "충성가",
+              "낙천가",
+              "지도자",
+              "중재자",
+            ],
           };
         },
         computed: {
@@ -201,7 +233,6 @@
         },
         methods: {
           clickStart() {
-            console.log("clickStart");
             this.step = "step2";
             this.curIndex = 0;
 
@@ -210,10 +241,13 @@
           setQuestionList() {
             this.curQuestionList = this.allQuestionList.slice(
               this.curIndex,
-              this.curIndex + this.countPerPage
+              Math.min(this.curIndex + this.countPerPage, this.endIndex + 1)
             );
 
             this.curScoreList.fill(0);
+
+            // 스크롤 위로
+            window.scrollTo(0, 0);
           },
           clickNext() {
             // 점수 계산
@@ -223,10 +257,94 @@
             }
 
             // 페이지 이동
-            this.curIndex += this.countPerPage;
-            this.setQuestionList();
+            if (this.curIndex + this.countPerPage < this.endIndex + 1) {
+              this.curIndex += this.countPerPage;
+              this.setQuestionList();
+            } else {
+              this.step = "step3";
+              this.showChart();
+            }
+          },
+          showChart() {
+            Highcharts.chart("chart", {
+              chart: {
+                polar: true,
+              },
+              title: {
+                text: "에니어그램 프로파일",
+              },
+              pane: {
+                startAngle: 20,
+                endAngle: 380,
+              },
+              xAxis: {
+                categories: [
+                  "1(개혁가)",
+                  "2(조력가)",
+                  "3(성취자)",
+                  "4(예술가)",
+                  "5(사색가)",
+                  "6(충성가)",
+                  "7(낙천가)",
+                  "8(지도자)",
+                  "9(중재자)",
+                ],
+                labels: {
+                  style: {
+                    fontSize: "14px",
+                  },
+                },
+              },
+              yAxis: {
+                min: 0,
+                max: 45,
+                tickInterval: 5,
+              },
+              plotOptions: {
+                area: {
+                  dataLabels: {
+                    enabled: true,
+                    style: {
+                      fontSize: "14px",
+                    },
+                  },
+                  enableMouseTracking: false,
+                },
+              },
+              series: [
+                {
+                  type: "area",
+                  name: "score",
+                  data: this.score,
+                  showInLegend: false,
+                },
+              ],
+              credits: {
+                enabled: false,
+              },
+            });
+          },
+          getEnneagramTypeName() {
+            let maxScore = 0;
+            let typeList = [];
+            for (let i = 0; i < this.score.length; ++i) {
+              if (maxScore < this.score[i]) {
+                typeList = [i];
+                maxScore = this.score[i];
+              } else if (maxScore == this.score[i]) {
+                typeList.push(i);
+              }
+            }
 
-            console.log(this.score);
+            let typeName = "";
+            for (let i = 0; i < typeList.length; ++i) {
+              if (i > 0) {
+                typeName += ", ";
+              }
+              typeName += this.typeNameList[typeList[i]];
+            }
+
+            return typeName;
           },
         },
         mounted() {
