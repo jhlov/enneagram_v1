@@ -140,7 +140,11 @@
                 </div>
 
                 <div class="text-center mt-5">
-                  <button type="submit" class="btn btn-outline-primary btn-lg">
+                  <button
+                    type="submit"
+                    class="btn btn-outline-primary btn-lg"
+                    :disabled="isNextButtonDisabled"
+                  >
                     다음
                   </button>
                 </div>
@@ -183,6 +187,17 @@
             score: [],
             curScoreList: [],
           };
+        },
+        computed: {
+          isNextButtonDisabled() {
+            for (let i = 0; i < this.curQuestionList.length; ++i) {
+              if (this.curScoreList[i] == 0) {
+                return true;
+              }
+            }
+
+            return false;
+          },
         },
         methods: {
           clickStart() {
